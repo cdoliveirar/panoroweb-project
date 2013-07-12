@@ -1,0 +1,50 @@
+{% extends "base_search.html" %}
+
+{% block title %} Search by Basin{% endblock %}
+
+{% block content %}
+	    				{% if documents %}
+	    					<div id="alert" class="ui-state-highlight ui-corner-all" >
+	    						<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+								<p>Found {{ docAmount }} Document{{ documents|pluralize }}</p><br>
+							</div>
+				<div id="basket" class="ui-widget ui-widget-content" >	
+							<table id="basketTable">
+								<thead id="theader" class="ui-widget-header">
+									<tr>
+										<th>Document</th>
+										<th>Path</th>
+										<th>Folder</th>
+									</tr>
+								</thead>	
+								{% for document in documents %}
+								<tr>
+									<td>{{ document.nm_document }}</td>
+									<td>{{ document.path }}</td>
+									<td>{{ document.cd_folder.nm_folder }}</td>
+									<td><a href="/documents_detail/{{document.id_document}}">details</a></td>
+								</tr>
+								{% endfor %}
+							</table>
+							<div class="pagination">
+							    <span class="step-links">
+							        {% if documents.has_previous %}
+							            <a href="?block={{block}}&page={{ documents.previous_page_number }}">previous</a>
+							        {% endif %}
+							
+							        <span class="current">
+							            Page {{ documents.number }} of {{ documents.paginator.num_pages }}.
+							        </span>
+							
+							        {% if documents.has_next %}
+							            <a href="?block={{block}}&page={{ documents.next_page_number }}">next</a>
+							        {% endif %}
+							    </span>
+							</div>
+						{% else %}
+							<div id="alert-error"  class="ui-state-error ui-corner-all" >
+								<span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>			
+								<p>No documents matched your search criteria.</p>
+							</div>
+						{% endif %}
+{% endblock %}

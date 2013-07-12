@@ -1,0 +1,385 @@
+body {font-size:76%; font-family:"trebuchet MS", verdana, arial, sans-serif; background:#ffffff; word-wrap:break-word;}
+/*html, body {margin:0px; padding:0px; background:#ffffff; font-family:verdana; font-size:12px;} */
+
+/*#header {background:#a31e39;} */
+#header {background:#FFFFFF; height:109px;}
+
+#header .user{position: absolute; float:right; margin:0; padding:0 0 0 750px; border:0; }
+
+#header .user p {color: #999999}
+.user a {color: #999999}
+
+a {
+text-decoration: none;
+}
+
+#logo {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	/* background: transparent url(/css/img/sprites/sprite-v0.0.1.png) no-repeat -335px 10px;  */
+	width: 250px;
+}
+
+#container {
+    /*background: url("fondo.jpg") repeat-y scroll 0 0 #E6E3DE;*/
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+    text-align: left;
+    width: 960px;
+    z-index: 1;
+}
+
+
+#leftouter {float:left; width:40%; background:#f0f0f0; }
+#centreouter {float:left; width:60%; background:#f0f0f0;}
+#rightouter {float:right; width:0%; background:#f0f0f0;}
+#leftouter, #centreouter, #rightouter {padding-bottom:32767px; margin-bottom:-32767px;}
+
+#wrapper { position: absolute; overflow:hidden; background:#f0f0f0; width: 100%; margin-top:1px;  height: 700px;}
+
+#footer {clear:both; background:#ffffff;}
+
+h1 {font-size:20px; margin:0; padding:10px 0; color:#000;}
+h3 {font-size:18px; margin:0; padding:8px 0;}
+.content {padding:10px;}
+p {font-size:12px; line-height:1.5em; margin:0; padding:5px 0; }
+
+#footer {position: absolute; top:820px}
+/*#footer p,*/
+#header p {color:#000;}
+#footer a {color:#000;}
+#footer a:hover {text-decoration:none;}
+
+/* scrolling searching*/
+#scrollbox {position:absolute; left:0; top:5px; bottom:50px; width:40%; font-size:1em; z-index:4; overflow:auto;}
+#scrolltable {position:absolute; left:40%; top:20px; bottom:50px; width:60%; font-size:1em; z-index:4; overflow:auto;}
+
+#menu1 {position:relative; top:0px;}
+
+/* #add { top: 10px}**/
+
+/*.content {margin-top:50px;}*/
+
+
+/***** menu ******/
+/* Some stylesheet reset */
+.nav, .nav ul {
+	margin-top: -11px;
+	/*margin-left:205px;*/
+	padding: 0;
+	list-style: none;
+	line-height: 1;
+}
+
+/* The main container */
+.nav {
+	margin-top: 73px;
+	
+	/* Layout and positioning */
+	display: block;
+	position: absolute;
+	/*position: absolute;*/
+	height: 35px;
+	width: 100%; /* CHANGE this if you want another width or remove it if you want the width of the container */
+	border-radius: 3px;
+	border: 1px solid #c1c1c1;
+	
+	/* Background and effects */
+	background: #eaeaea; /* Background for IE9 and older browsers */
+	background: -webkit-linear-gradient(bottom, #e1e1e1, #f4f4f4); /* Background for Chrome & Safari */
+	background: -moz-linear-gradient(bottom, #e1e1e1, #f4f4f4); /* Background for Firefox */
+	background: -o-linear-gradient(bottom, #e1e1e1, #f4f4f4); /* Background for Opera */
+	background: -ms-linear-gradient(bottom, #e1e1e1, #f4f4f4); /* Background for Internet Explorer 10 */
+	box-shadow: inset 0 1px 0 #fff;
+}
+
+.nav>li {
+	display: block;
+	position: relative;
+	float: left;
+	margin: 0;
+	padding: 0 1px 0 0;
+	/*padding-left:100px;*/
+}
+
+/* The main navigation links */
+.nav>li>a {
+	/* Layout */
+	display: block;
+	padding: 11px 20px;
+
+	/* Typography */
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	font-weight: normal;
+	text-decoration: none;
+	color: #9a9a9a;
+	text-shadow: 0 1px 0 #fff;
+
+	/* Effects */
+	-webkit-transition: all .3s;
+	-moz-transition: all .3s;
+	-ms-transition: all .3s;
+	-o-transition: all .3s;
+	transition: all .3s;
+}
+
+/* The hover state of the navigation links */
+.nav>li>a:hover, .nav>li:hover>a {
+	background: #fff;
+	background: rgba(255, 255, 255, .6);
+	color: #999;
+}
+
+.nav>li:first-child>a {
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+
+.nav>.dropdown>a {
+	padding-right: 26px;
+}
+
+/* The arrow indicating a dropdown menu */
+.nav>.dropdown>a::after {
+	 content: "";
+	 position: absolute;
+	 top: 14px;
+	 right: 11px;
+	 width: 4px;
+	 height: 4px;
+	 border-bottom: 1px solid #9a9a9a;
+	 border-right: 1px solid #9a9a9a;
+	 -webkit-transform: rotate(45deg);
+	 -ms-transform: rotate(45deg);
+	 -moz-transform: rotate(45deg);
+	 -o-transform: rotate(45deg);
+	}
+
+/* Changing the color of the arrow on hover */
+.nav>.dropdown>a:hover::after, .nav>.dropdown:hover>a::after {
+	border-color: #999;
+}
+
+.nav ul {
+	position: relative;
+	position: absolute;
+	left: -9999px;
+	display: block;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+}
+
+/* Level 1 submenus */
+.nav>li>ul {
+	padding-top: 0px;
+	z-index: 99;
+	border-top: 1px solid #c9c9c9;
+	top: 34px;
+}
+
+/* Making the level 1 submenu to appear on hover */
+.nav>li:hover>ul {
+	left: -1px;
+}
+
+/* Level 2+ submenus */
+.nav ul ul {
+	left: -9999px;
+	top: 0px;
+	z-index: 999;
+}
+
+/* Making the level 2+ submenu to appear on hover */
+.nav ul>li:hover>ul {
+	left: 120px;
+	top: -1px;
+}
+
+/* The submenu link containers */
+.nav ul li {
+	position: relative;
+	display: block;
+	border-left: 1px solid #c1c1c1;
+	border-right: 1px solid #c1c1c1;
+
+	/* Creating the slide effect. The list elements which contain the links have 0 height. On hover, they will expand */
+	height: 0px;
+	-webkit-transition: height .3s;
+	-moz-transition: height .3s;
+	-o-transition: height .3s;
+	-ms-transition: height .3s;
+}
+
+/* Expanding the list elements which contain the links */
+.nav li:hover>ul>li {
+	height: 25px;
+}
+
+.nav ul li:hover>ul>li:first-child {
+	height: 26px;
+}
+
+/* The links of the submenus */
+.nav ul li a {
+	/* Layout */
+	display: block;
+	width: 90px;
+	padding: 6px 10px 6px 20px;
+	border-bottom: 1px solid #e1e1e1;
+
+	/* Typography */
+	font-size: 12px;
+	color: #a6a6a6;
+	font-family: Helvetica, Arial, sans-serif;
+	text-decoration: none;
+	
+	/* Background & effects */
+	background: #fff;
+	-webkit-transition: background .3s;
+	-moz-transition: background .3s;
+	-ms-transition: background .3s;
+	-o-transition: background .3s;
+	transition: background .3s;
+}
+
+/* The hover state of the links */
+.nav ul li>a:hover, .nav ul li:hover>a {
+	background: #e9e9e9;
+	color: #a1a1a1;
+}
+
+.nav ul ul>li:first-child>a {
+	border-top: 1px solid #c1c1c1;
+}
+
+.nav ul>li:last-child>a {
+	border-bottom: 1px solid #c1c1c1;
+}
+
+
+/* The arrow indicating a level 2+ submenu */
+.nav ul>.dropdown>a::after {
+	content: "";
+	 position: absolute;
+	 top: 10px;
+	 right: 8px;
+	 width: 4px;
+	 height: 4px;
+	 border-bottom: 1px solid #a6a6a6;
+	 border-right: 1px solid #a6a6a6;
+	 -webkit-transform: rotate(-45deg);
+	 -ms-transform: rotate(-45deg);
+	 -moz-transform: rotate(-45deg);
+	 -o-transform: rotate(-45deg);
+}
+
+.nav ul>.dropdown:hover>a::after, .nav ul>.dropdown>a:hover::after {
+	border-color: #a1a1a1;
+}
+
+/***** end menu ******/
+
+/****** table *******/
+table a:link {
+	color: #666;
+	font-weight: bold;
+	text-decoration:none;
+}
+table a:visited {
+	color: #999999;
+	font-weight:bold;
+	text-decoration:none;
+}
+table a:active,
+table a:hover {
+	color: #bd5a35;
+	text-decoration:underline;
+}
+table {
+	font-family:Arial, Helvetica, sans-serif;
+	color:#666;
+	font-size:12px;
+	text-shadow: 1px 1px 0px #fff;
+	background:#eaebec;
+	margin:20px;
+	border:#ccc 1px solid;
+
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+
+	-moz-box-shadow: 0 1px 2px #d1d1d1;
+	-webkit-box-shadow: 0 1px 2px #d1d1d1;
+	box-shadow: 0 1px 2px #d1d1d1;
+}
+table th {
+	padding:8px 25px 0 25px;
+	border-top:1px solid #fafafa;
+	border-bottom:1px solid #e0e0e0;
+
+	background: #ededed;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
+	background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
+}
+table th:first-child{
+	text-align: left;
+	padding-left:20px;
+}
+table tr:first-child th:first-child{
+	-moz-border-radius-topleft:3px;
+	-webkit-border-top-left-radius:3px;
+	border-top-left-radius:3px;
+}
+table tr:first-child th:last-child{
+	-moz-border-radius-topright:3px;
+	-webkit-border-top-right-radius:3px;
+	border-top-right-radius:3px;
+}
+table tr{
+	text-align: center;
+	padding-left:20px;
+}
+table tr td:first-child{
+	text-align: left;
+	padding-left:20px;
+	border-left: 0;
+}
+table tr td {
+	padding:18px;
+	border-top: 1px solid #ffffff;
+	border-bottom:1px solid #e0e0e0;
+	border-left: 1px solid #e0e0e0;
+	
+	background: #fafafa;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
+	background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
+}
+table tr.even td{
+	background: #f6f6f6;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
+	background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
+}
+table tr:last-child td{
+	border-bottom:0;
+}
+table tr:last-child td:first-child{
+	-moz-border-radius-bottomleft:3px;
+	-webkit-border-bottom-left-radius:3px;
+	border-bottom-left-radius:3px;
+}
+table tr:last-child td:last-child{
+	-moz-border-radius-bottomright:3px;
+	-webkit-border-bottom-right-radius:3px;
+	border-bottom-right-radius:3px;
+}
+table tr:hover td{
+	background: #f2f2f2;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
+	background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);	
+}
+/****** end table ***/
+
+

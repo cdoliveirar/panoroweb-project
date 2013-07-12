@@ -1,0 +1,12 @@
+@import "principal.css"; 
+
+#outer1 {float:left; width:0%; background:#fff;}
+#outer2 {float:left; width:100%; background:#fff;}
+#outer3 {float:right; width:0%; background:#E5FFC4;}
+/* #outer1, #outer2, #outer3 {padding-bottom:32767px; margin-bottom:-32767px;} */
+
+#wrapper {overflow:hidden; background:#c0c0c0;}
+
+.content {margin-left:60px; padding:10px;}
+
+

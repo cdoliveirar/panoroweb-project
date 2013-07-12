@@ -1,0 +1,94 @@
+{% load url from future %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block head_title %}{% endblock %}</title>
+    <link href="/static/index.css" rel="stylesheet" type="text/css" />
+    {% block extra_head %}
+    {% endblock %}
+  </head>
+  <body style="background:#e7e8e3">
+  	<header style="background:#e7e8e3">
+		<div class="panoro-wrap">
+			<div id="logo"><a href="/"> <img class="logo" src="/static/img/logoMain.gif" height="80" width="250" /> </a>
+			</div><!-- end logo -->
+			<div class="user-content">
+				{% if user.is_authenticated %}
+					<p>Welcome {{ user.username }}. <a href="/logout">logout</a></p>
+				{% else %}
+    				<p>Welcome, new user.</p>
+				{% endif %}
+			</div>
+			
+			<ul class="nav">
+				
+				{% if user.is_superuser %}
+					<li class="nav-login">
+						<a href="/accounts/password/reset/">
+							<span>Send Mail</span>
+						</a>
+					</li>
+				{% endif %}
+				
+			</ul>
+			
+		</div>
+			
+	</header>
+  
+  
+    
+    
+    
+    <!-- ***********content ***************** -->
+
+	<div id="main-content" class="clearfix">
+			
+	<div id="wrapper" style="background:#FFFFFF;margin-left:110px;">
+		
+	{% block body %}
+	{% if messages %}
+	    <div>
+	      <strong>Messages:</strong>
+	      <ul>
+		{% for message in messages %}
+			<li>{{message}}</li>
+		{% endfor %}
+	      </ul>
+	    </div>
+    {% endif %}
+
+    
+	    {% block content %}
+	    {% endblock %}
+    {% endblock %}
+    
+    {% block extra_body %}
+    {% endblock %}
+
+	</div>	 
+		</div>   
+    
+    
+    
+    <footer>
+	<div class="panoro-wrap">
+		<div class="social-links">
+			<label>Designed and build by:</label>
+			<ul>
+				<li><a class="facebook" target="_blank" href="https://www.facebook.com/deskgraphics" title="Viddy on Facebook" rel="nofollow"><span>Facebook</span></a></li>
+				<li><a class="linkedin" target="_blank" href="http://www.linkedin.com/profile/view?id=119011611&trk=tab_pro" title="Viddy on LinkedIn" rel="nofollow"><span>LinkedIn</span></a></li>
+			</ul>
+		</div>
+
+		<ul id="footer-text">
+			<li><a href="/" title="Panoro, Inc">&copy; Panoro Energy 2013</a></li>
+			<li><a href="/" title="Contact Panoro" rel="nofollow">Contact Us</a></li>
+		</ul>
+	</div>
+</footer>
+    
+    
+    
+  </body>
+</html>

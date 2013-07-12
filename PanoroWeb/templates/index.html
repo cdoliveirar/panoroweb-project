@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title> Panoro Energy </title>
+<meta name="Author" content="DeskGraphics" />
+<meta name="Keywords" content="documents, gis, intranet, sistema" />
+<meta name="Description" content="GEOSistema" />
+<meta http-equiv="imagetoolbar" content="no" />
+
+<link href="/static/index.css" rel="stylesheet" type="text/css" />
+</head>
+
+
+<body>
+	<header>
+		<div class="panoro-wrap">
+			<div id="logo"><a href="/"> <img class="logo" src="/static/img/logoMain.gif" height="80" width="250" /> </a>
+			</div><!-- end logo -->
+			
+			<div class="user-content">
+				{% if user.is_authenticated %}
+					<p>Welcome {{ user.username }}. <a href="/logout">logout</a></p>
+				{% else %}
+    				<p>Welcome, new user.</p>
+				{% endif %}
+			</div>
+			
+			<ul class="nav">
+				<li class="hmenu">
+					<a href="/">
+						<span>Home</span>
+					</a>
+				</li>
+<!-- 				<li class="hmenu"> -->
+<!-- 					<a href="/treeview/1"> -->
+<!-- 						<span>Files</span> -->
+<!-- 					</a> -->
+<!-- 				</li> -->
+				<li class="hmenu">
+					<a href="/search/">
+						<span>Search</span>
+					</a>
+				</li>
+				<li class="hmenu">
+					<a href="/searchdocuments/">
+						<span>Search Filter</span>
+					</a>
+				</li>
+				{% if user.is_authenticated %}
+				{% else %}
+				<li class="nav-login">
+					<a href="/login">
+						<span>Sign in</span>
+					</a>
+				</li>
+				{% endif %}
+				
+				{% if user.is_superuser %}
+					<li class="nav-login">
+						<a href="accounts/password/reset/">
+							<span>Send Mail</span>
+						</a>
+					</li>
+				{% endif %}
+				
+				
+			</ul>
+			
+		</div>
+			
+	</header>
+	
+<!-- end header -->
+
+
+<!-- ***********content ***************** -->
+
+<div id="main-content" class="clearfix">
+	
+	<div class="content-picture">
+		<img width="896" height="244" alt="about banner" src="/static/img/home_banner.jpg">
+	</div>	
+	
+<div id="wrapper">
+	<div id="outer1"></div>
+	<div id="outer2">
+		<div class="content">
+			<div class="xsnazzy"><b class="xtop"><b class="xb1"></b><b class="xb2 color_a"></b><b class="xb3 color_a"></b><b class="xb4 color_a"></b></b> <!--curves-->
+				<div class="xboxcontent">
+					<h1 class="color_a">Welcome to Panoro</h1>
+					<p> 
+					Panoro Documents is a intranet application, where is help you to locate your documents through Geolocation system.
+					these document are using in differents process in the company
+					where know what is happening with them is key to the development of activities in Panoro.
+					</p>
+				</div>
+				<b class="xbottom"><b class="xb4"></b><b class="xb3"></b><b class="xb2"></b><b class="xb1"></b></b>
+				<span>
+				<br>
+				<p>Panoro Energy do Brasil Ltda.</p>
+				<p>Praia de Botafogo No 228, Sala 801</p>
+				<p>Rio de Janeiro – RJ 22250-906</p>
+				<p>Brazil</p>
+				<p>Tel: + 55 21 3078 7475</p>
+				<p>Fax: + 55 21 3078 7451</p>
+				</span>
+				
+			</div>
+		</div>
+	<!-- end content -->
+	</div>
+
+	<div id="outer3"></div>
+</div>
+<!-- end #wrapper -->
+
+</div>
+
+
+	
+<footer>
+	<div class="panoro-wrap">
+		<div class="social-links">
+			<label>Designed and build by:</label>
+			<ul>
+				<li><a class="facebook" target="_blank" href="https://www.facebook.com/deskgraphics" title="Viddy on Facebook" rel="nofollow"><span>Facebook</span></a></li>
+				<li><a class="linkedin" target="_blank" href="http://www.linkedin.com/profile/view?id=119011611&trk=tab_pro" title="Viddy on LinkedIn" rel="nofollow"><span>LinkedIn</span></a></li>
+			</ul>
+		</div>
+
+		<ul id="footer-text">
+			<li><a href="/" title="Imiria, Inc">&copy; Panoro Energy 2013</a></li>
+			<li><a href="/" title="Contact Panoro" rel="nofollow">Contact Us</a></li>
+		</ul>
+	</div>
+</footer>
+
+</body>
+</html>

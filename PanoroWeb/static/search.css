@@ -1,0 +1,64 @@
+@import "principal.css"; 
+
+#outer1 {
+	position: absolute;
+	/*height: 100px;*/
+	float:left; 
+	width:100%; 
+	background:#95ffff;}
+/*#outer2 {float:left; width:20%; background:#cccccc;} */
+#outer3 {
+	position: absolute;
+	margin-top: 70px;
+	/*height: 100px;*/
+	width:100%;
+	background:#E5FFC4;
+}
+
+#outer1,#outer3 {padding-bottom:32767px; margin-bottom:-32767px;}
+
+#wrapper {height: 200px; overflow:hidden; background:#ffffff;}
+
+.content {margin-left:60px; padding:10px;}
+
+#basket {width: 95%; text-align: left; float: left; margin-left: 10px} 
+#basketTable {border: none; border-collapse: collapse}
+th, td {padding: 4px; width: 50px} 
+td:first-child, th:first-child {width: 150px}
+
+#theader {border: none}
+
+table{	width: 100%;
+		border-collapse:collapse; 
+		border-spacing: 2px; 
+		border-color: #8B1C62;
+		font-size:10px;
+		border:1px solid #98bf21;
+}
+
+.pagination {color: #1c94c4;
+			margin-left: 330px				
+}
+
+.pagination a{color: #1c94c4;}
+
+#alert{margin-left:10px; width: 150px;}
+
+#alert-error{margin-left:10px; width: 270px;}
+
+
+/*
+tr {	display: table-row;
+		vertical-align: inherit; 
+		border-color:: inherit;
+	}
+td	{	display: table-cell; vertical-align: inherit; border:1px solid #98bf21; }
+
+th	{ 	display: table-cell; vertical-align: inherit; 
+		font-weight: bold; text-align: center;
+		inherit; border:1px solid #98bf21;
+	 } 
+
+tr > th { text-align:center; background:#a7c942; color:white} 
+tr > th:only-of-type {text-align:right; background: lightgrey; color:grey}
+*/
