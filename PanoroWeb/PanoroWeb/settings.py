@@ -13,7 +13,7 @@ DATABASES = {
     'default': {
         #'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'panorodb_allauth',                      # Or path to database file if using sqlite3.
+        'NAME': 'panorodb',                      # Or path to database file if using sqlite3.
         'USER': 'postgres',                      # Not used with sqlite3.
         'PASSWORD': 'postgres',                  # Not used with sqlite3.
         #'HOST': '192.168.0.131',                      # Set to empty string for localhost. Not used with sqlite3.

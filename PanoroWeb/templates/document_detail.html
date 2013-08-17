@@ -46,14 +46,29 @@
 						<span>Home</span>
 					</a>
 				</li>
+<!-- 				<li class="hmenu"> -->
+<!-- 					<a href="/treeview/1"> -->
+<!-- 						<span>Files</span> -->
+<!-- 					</a> -->
+<!-- 				</li> -->
 				<li class="hmenu">
-					<a href="/search">
-						<span>Search</span>
+					<a href="/search/">
+						<span>Documents</span>
 					</a>
 				</li>
 				<li class="hmenu">
-					<a href="/searchdocuments/">
-						<span>Search Filter</span>
+					<a href="/searchdocumentsbasin/">
+						<span>Basin</span>
+					</a>
+				</li>
+				<li class="hmenu">
+					<a href="/searchdocumentsblock/">
+						<span>Block</span>
+					</a>
+				</li>
+				<li class="hmenu">
+					<a href="/searchdocumentsfield/">
+						<span>Field</span>
 					</a>
 				</li>
 				{% if user.is_authenticated %}
@@ -86,20 +101,24 @@
 	
 	<div id="wrapper">
 			<div class="content">
-			<fieldset>
-			<h1>Documents Details:</h1><br>
+			
+			<h1>Documents Details:</h1><hr>
 				{% for document in documents %}
 				<ul>     
-				   <li>Name: {{ document.nm_document}}</li> 
-				   <li>Date Createed: {{ document.dt_create }}</li>
-				   <li>Author: {{ document.nm_author }}</li>
-				   <li>Title: {{ document.title }}</li>
-				   <li>Extension: {{ document.extension }}</li>            
+				   <li><em>Name:</em> {{ document.nm_document}}</li><br> 
+				   <li><em>Date Created:</em> {{ document.dt_create }}</li><br>
+				   <li><em>Author:</em> {{ document.nm_author }}</li><br>
+				   <li><em>Title:</em> {{ document.title }}</li><br>
+				   <li><em>Extension:</em> {{ document.extension }}</li><br>     
+				   <li><em>Protocol:</em> {{ document.protocol }}</li><br>
+				   <li>Description: {{ document.description }}</li><br>
+				   <li>Path: {{ document.path }}</li>
+				          
 				</ul>
 				{% endfor %}
-			</fieldset>	
+				
 			</div>
-		
+
 	</div>
 
 </div>

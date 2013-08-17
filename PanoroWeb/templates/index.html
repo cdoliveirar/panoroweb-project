@@ -39,14 +39,25 @@
 <!-- 				</li> -->
 				<li class="hmenu">
 					<a href="/search/">
-						<span>Search</span>
+						<span>Documents</span>
 					</a>
 				</li>
 				<li class="hmenu">
-					<a href="/searchdocuments/">
-						<span>Search Filter</span>
+					<a href="/searchdocumentsbasin/">
+						<span>Basin</span>
 					</a>
 				</li>
+				<li class="hmenu">
+					<a href="/searchdocumentsblock/">
+						<span>Block</span>
+					</a>
+				</li>
+				<li class="hmenu">
+					<a href="/searchdocumentsfield/">
+						<span>Field</span>
+					</a>
+				</li>
+				
 				{% if user.is_authenticated %}
 				{% else %}
 				<li class="nav-login">

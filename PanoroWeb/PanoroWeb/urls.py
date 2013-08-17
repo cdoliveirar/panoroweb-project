@@ -53,8 +53,17 @@ urlpatterns = patterns('',
     
     #searching documents
     #url(r'^search2/$', 'searching.views.load_country_combo'),
-    url(r'^searchdocuments/$', 'searching.views.searching'),
-    url(r'^searchfilter/$', 'searching.views.searchFilterDocuments'),
+    url(r'^searchfilterblock/$', 'searching.views.searchFilterDocuments'),
+    #search for basin
+    url(r'^searchdocumentsbasin/$', 'searching.views.searchdocumentsbasin'),
+    url(r'^searchFilterBasins/$', 'searching.views.searchFilterBasins'),
+    #search for block
+    url(r'^searchdocumentsblock/$', 'searching.views.searchdocumentblock'),
+    url(r'^searchfilterblock/$', 'searching.views.searchFilterDocuments'),
+        #search for field
+    url(r'^searchdocumentsfield/$', 'searching.views.searchdocumentsfield'),
+    url(r'^searchFilterFields/$', 'searching.views.searchFilterFields'),
+    
     url(r'^documents_detail/(?P<id>\w+)', 'searching.views.documents_detail'),
     
     #searching fields
@@ -69,6 +78,8 @@ urlpatterns = patterns('',
     #url(r'^ajax_test/$', 'searching.views.ajax_test' ),
     url(r'^findBasinbyCountry/$', 'searching.views.findBasinbyCountry', name='findBasinbyCountry'),
     url(r'^findBlockbyBasin/$', 'searching.views.findBlockbyBasin', name='findBlockbyBasin'),
+    url(r'^findFieldbyBasin/$', 'searching.views.findFieldbyBasin', name='findFieldbyBasin'),
+    # send document 
      
     
 )

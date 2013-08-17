@@ -17,7 +17,7 @@
 
 #outer1,#outer3 {padding-bottom:32767px; margin-bottom:-32767px;}
 
-#wrapper {height: 200px; overflow:hidden; background:#ffffff;}
+#wrapper {height: 500px; overflow:hidden; background:#ffffff;}
 
 .content {margin-left:60px; padding:10px;}
 

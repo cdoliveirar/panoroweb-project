@@ -89,13 +89,23 @@
 <!-- 					</a> -->
 <!-- 				</li> -->
 				<li class="hmenu">
-					<a href="/search">
-						<span>Search</span>
+					<a href="/search/">
+						<span>Documents</span>
 					</a>
 				</li>
 				<li class="hmenu">
-					<a href="/searchdocuments/">
-						<span>Search Filter</span>
+					<a href="/searchdocumentsbasin/">
+						<span>Basin</span>
+					</a>
+				</li>
+				<li class="hmenu">
+					<a href="/searchdocumentsblock/">
+						<span>Block</span>
+					</a>
+				</li>
+				<li class="hmenu">
+					<a href="/searchdocumentsfield/">
+						<span>Field</span>
 					</a>
 				</li>
 				{% if user.is_authenticated %}
@@ -132,9 +142,10 @@
 						{% if error %}
 							<p style="color: red;">Please submit a Block Number.</p>
 						{% endif %}
-						<form action="/searchfilter/" method="get">
-							<fieldset>
-								<legend>Search Documents:</legend> 
+						<form action="/searchFilterFields/" method="get">
+							
+								<h4>Search in Field:</h4>
+								<hr> 
 							
 							<label> Country:</label>
 							
@@ -156,21 +167,22 @@
 							
 							<div id= "mostra2"></div>
 							
-							<label>Block:</label>
-							<select id="block" name="block" size="1">
-							</select><br><br>  
+							<label>Field:</label>
+							<select id="field" name="field" size="1">
+							</select><br><br>
 							
 							<br>
 <!--						<input type="submit" value="Search" accesskey="s"> -->
 							<button type="submit">Search</button>							
-						</fieldset>
+						
 						</form>
 						
 						<script>
 								$("#country").change(function () {
   								var ddvalue = "";
   								$("#basin").html("");
-  								$("#block").html("");
+  								// $("#block").html(""); 
+  								$("#field").html("");
   								$("select option:selected").each(function () {
             						ddvalue = $(this).val() + " ";  //text()
   								});
@@ -201,29 +213,24 @@
 						<script>
 							$("#basin").change(function () {
 								var ddvalue = "";
-								$("#block").html("");
+								<!-- $("#block").html(""); -->
+								$("#field").html("");
 								$("select option:selected").each(function () {
-        						ddvalue = $(this).val() + " ";  //text()
+        							ddvalue = $(this).val() + " ";  //text()
 								});
 								$("#mostra2").text(ddvalue);
 							  	
 								console.log("Nivel Basin>>>"+ddvalue)
 								basinInfo = {"ddvalue": ddvalue}
 							
-								$.post("/findBlockbyBasin/",basinInfo,function(data){
+								$.post("/findFieldbyBasin/",basinInfo,function(data){
 									alert(data);
 								//$("#otro").html(data);
-								$("select[name=block]").append("<option>"+data+"</option>");
+									$("select[name=field]").append("<option>"+data+"</option>");
 								});
 							})
 							.change();
-						
 						</script>
-						
-						
-						
-						
-						
 						
 						
 						

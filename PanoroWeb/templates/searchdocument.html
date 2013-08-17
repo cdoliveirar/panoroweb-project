@@ -53,13 +53,23 @@
 <!-- 					</a> -->
 <!-- 				</li> -->
 				<li class="hmenu">
-					<a href="/search">
-						<span>Search</span>
+					<a href="/search/">
+						<span>Documents</span>
 					</a>
 				</li>
 				<li class="hmenu">
-					<a href="/searchdocuments/">
-						<span>Search Filter</span>
+					<a href="/searchdocumentsbasin/">
+						<span>Basin</span>
+					</a>
+				</li>
+				<li class="hmenu">
+					<a href="/searchdocumentsblock/">
+						<span>Block</span>
+					</a>
+				</li>
+				<li class="hmenu">
+					<a href="/searchdocumentsfield/">
+						<span>Field</span>
 					</a>
 				</li>
 				{% if user.is_authenticated %}
@@ -98,7 +108,7 @@
 							<p style="color: red;">Please submit a search term.</p>
 						{% endif %}	
 						 <form action="/searchdoc/" method="get" id="gbqf">
-						 	<p>Search document</p>
+						 	<h4>Enter document name</h4>
 						 	<input type=search results=5 autosave=some_unique_value name=q >
 	        				<button type="submit">Search</button>
 	    				</form>
@@ -118,15 +128,15 @@
 								<thead id="theader" class="ui-widget-header">
 									<tr>
 										<th>Document</th>
-										<th>Path</th>
-										<th>Folder</th>
+										<th>Type</th>
+										<th>Title</th>
 									</tr>
 								</thead>	
 								{% for document in documents %}
 								<tr>
 									<td>{{ document.nm_document }}</td>
-									<td>{{ document.path }}</td>
-									<td>{{ document.cd_folder.nm_folder }}</td>
+									<td>{{ document.extension }}</td>
+									<td>{{ document.title }}</td>
 									<td><a href="/documents_detail/{{document.id_document}}">details</a></td>
 								</tr>
 								{% endfor %}

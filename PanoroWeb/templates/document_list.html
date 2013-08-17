@@ -45,14 +45,29 @@
 						<span>Home</span>
 					</a>
 				</li>
+<!-- 				<li class="hmenu"> -->
+<!-- 					<a href="/treeview/1"> -->
+<!-- 						<span>Files</span> -->
+<!-- 					</a> -->
+<!-- 				</li> -->
 				<li class="hmenu">
-					<a href="/search">
-						<span>Search</span>
+					<a href="/search/">
+						<span>Documents</span>
 					</a>
 				</li>
 				<li class="hmenu">
-					<a href="/search">
-						<span>Filter Search</span>
+					<a href="/searchdocumentsbasin/">
+						<span>Basin</span>
+					</a>
+				</li>
+				<li class="hmenu">
+					<a href="/searchdocumentsblock/">
+						<span>Block</span>
+					</a>
+				</li>
+				<li class="hmenu">
+					<a href="/searchdocumentsfield/">
+						<span>Field</span>
 					</a>
 				</li>
 				{% if user.is_authenticated %}
@@ -96,14 +111,14 @@
 									<tr>
 										<th>Document</th>
 										<th>Path</th>
-										<th>Folder</th>
+										<th>Title</th>
 									</tr>
 								</thead>	
 								{% for document in documents %}
 								<tr>
 									<td>{{ document.nm_document }}</td>
-									<td>{{ document.path }}</td>
-									<td>{{ document.cd_folder.nm_folder }}</td>
+									<td>{{ document.extension }}</td>
+									<td>{{ document.title }}</td>
 									<td><a href="/documents_detail/{{document.id_document}}">details</a></td>
 								</tr>
 								{% endfor %}

@@ -1,11 +1,14 @@
 # Create your views here.
 import logging
 
+ 
+
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+
 
 
 from .utilfinder import FindGeoDocumentation
@@ -31,6 +34,8 @@ def searching_documents(request):
     if 'q' in request.GET and request.GET['q']:
         q = request.GET['q']
         filter_documents = Documents.objects.filter(nm_document__contains=q)
+              
+        
         document_amount = filter_documents.count()
         #
         paginator = Paginator(filter_documents, 15)
@@ -49,12 +54,25 @@ def searching_documents(request):
 
 
 
+@login_required(login_url='/login/') 
+def searchdocumentsbasin(request):
+    countryItems = Countries.objects.all()
+    return render_to_response ('filter_searching_basin.html',{'items':countryItems}, context_instance =  RequestContext(request))
+
 
 @login_required(login_url='/login/') 
-def searching(request):
+def searchdocumentblock(request):
     countryItems = Countries.objects.all()
-    return render_to_response ('filter_searching2.html',{'items':countryItems}, context_instance =  RequestContext(request))
+    return render_to_response ('filter_searching_block.html',{'items':countryItems}, context_instance =  RequestContext(request))
 
+
+@login_required(login_url='/login/')
+def searchdocumentsfield(request):
+    countryItems = Countries.objects.all()
+    return render_to_response ('filter_searching_field.html',{'items':countryItems}, context_instance =  RequestContext(request))
+
+
+#flters
 def searchFilterDocuments(request):
     #country = request.POST['country']
     #basin = request.POST['basin']
@@ -86,13 +104,82 @@ def searchFilterDocuments(request):
         return render_to_response("document_list.html",{"block": blockId,"documents": documents,"docAmount":docAmount},context_instance=RequestContext(request))
     else:
         return render_to_response('document_list.html', {'error': True},context_instance=RequestContext(request))
-    
 
+
+def searchFilterBasins(request):
+    #country = request.POST['country']
+    #basin = request.POST['basin']
+    #if 'q' in request.GET and request.GET['q']:
+    #bloque = request.POST.get('block')
+    #print "algo mas" + bloque
+    if 'basin' in request.GET and request.GET['basin']:
+        basinId = request.GET['basin']
+    #if 'block' in request.POST and request.POST.get('block'):
+    #    bloque = request.POST.get('block')
+    #    print bloque
+    #    blockId = request.POST.get('block')
+        
+        
+        basinName = FindGeoDocumentation().getBasinName(basinId)
+        logger.info("basin name>>>>>> %s" % basinName)
+        filter_basin = Documents.objects.filter(path__contains=basinName)
+        logger.info("Number of Documents >> %s" % filter_basin.count())
+        docAmount = filter_basin.count()
+        #
+        paginator = Paginator(filter_basin, 15)
+        page = request.GET.get('page')
+        try:
+            documents = paginator.page(page)
+        except PageNotAnInteger:
+            documents = paginator.page(1)
+        except EmptyPage:
+            documents = paginator.page(paginator.num_pages)    
+        #
+        return render_to_response("document_list.html",{"block": basinId,"documents": documents,"docAmount":docAmount},context_instance=RequestContext(request))
+    else:
+        return render_to_response('document_list.html', {'error': True},context_instance=RequestContext(request))
+
+
+def searchFilterFields(request):
+    #country = request.POST['country']
+    #basin = request.POST['basin']
+    #if 'q' in request.GET and request.GET['q']:
+    #bloque = request.POST.get('block')
+    #print "algo mas" + bloque
+    if 'field' in request.GET and request.GET['field']:
+        fieldId = request.GET['field']
+    #if 'block' in request.POST and request.POST.get('block'):
+    #    bloque = request.POST.get('block')
+    #    print bloque
+    #    blockId = request.POST.get('block')
+        
+        
+        fieldName = FindGeoDocumentation().getFieldName(fieldId)
+        logger.info("field name>>>>>> %s" % fieldName)
+        filter_field = Documents.objects.filter(path__contains=fieldName)
+        logger.info("Number of Documents >> %s" % filter_field.count())
+        docAmount = filter_field.count()
+        #
+        paginator = Paginator(filter_field, 15)
+        page = request.GET.get('page')
+        try:
+            documents = paginator.page(page)
+        except PageNotAnInteger:
+            documents = paginator.page(1)
+        except EmptyPage:
+            documents = paginator.page(paginator.num_pages)    
+        #
+        return render_to_response("document_list.html",{"block": fieldId,"documents": documents,"docAmount":docAmount},context_instance=RequestContext(request))
+    else:
+        return render_to_response('document_list.html', {'error': True},context_instance=RequestContext(request))
+
+#detail all Geo types
 def documents_detail(request, id):
     document = Documents.objects.filter(id_document = id)
     #print document.nm_document
     return render_to_response("document_detail.html",{"documents": document},context_instance=RequestContext(request))
-        
+
+    
 
 def field_document_list(request, id):
     field = ProductionFields.objects.get(gid = id)
@@ -155,12 +242,12 @@ def block_document_list(request,id):
     return render_to_response("block_document.html",{"documents": documents,"docAmount":docAmount},context_instance=RequestContext(request))
     
         
-
+#Method Ajax
 def findBasinbyCountry(request):
     if request.method == "POST" and request.is_ajax():
         countryId = request.POST.get('ddvalue')
         countryId = int(countryId)
-        print countryId
+        logger.info("country Id >>>> %s" % countryId)
         print request.POST 
         
         message = ""
@@ -168,19 +255,17 @@ def findBasinbyCountry(request):
         basinList = FindGeoInformation().getBasinbyCountryId(countryId)
         print basinList
         
-        basins = []
+        basinListRes = []
         for basin in basinList:
-            basins.append("<option value='%s'>%s</option>" % (basin.gid,basin.nm_basin))
+            basinListRes.append("<option value='%s'>%s</option>" % (basin.gid,basin.nm_basin))
         
     else:
         logger.info("No ajax approach")
     
-    return HttpResponse(basins)
-    
+    return HttpResponse(basinListRes)
     
     
 def findBlockbyBasin(request):
-    
     if request.method == "POST" and request.is_ajax():
         basinId = request.POST.get('ddvalue')
         basinId = int(basinId)
@@ -190,13 +275,31 @@ def findBlockbyBasin(request):
         blockList = FindGeoInformation().getBlockbyBasinId(basinId)
         print blockList
         
-        blocks = []
+        blockListRes = []
         for block in blockList:
-            blocks.append("<option value='%s'>%s</option>" % (block.gid,block.nm_block))
+            blockListRes.append("<option value='%s'>%s</option>" % (block.gid,block.nm_block))
+    else:
+        logger.info("No ajax approach")
+        
+    return HttpResponse(blockListRes)
+    
+
+def findFieldbyBasin(request):
+    if request.method == "POST" and request.is_ajax():
+        basinId = request.POST.get('ddvalue')
+        basinId = int(basinId)
+        print basinId
+        print request.POST 
+        
+        fieldList = FindGeoInformation().getFieldbyBasinId(basinId)
+        print fieldList
+        
+        fieldListRes = []
+        for field in fieldList:
+            fieldListRes.append("<option value='%s'>%s</option>" % (field.gid,field.nm_field))
         
     else:
         logger.info("No ajax approach")
         
-    return HttpResponse(blocks)
-    
-
+    return HttpResponse(fieldListRes)
+       
