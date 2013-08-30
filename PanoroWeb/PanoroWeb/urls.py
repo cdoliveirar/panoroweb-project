@@ -79,8 +79,14 @@ urlpatterns = patterns('',
     url(r'^findBasinbyCountry/$', 'searching.views.findBasinbyCountry', name='findBasinbyCountry'),
     url(r'^findBlockbyBasin/$', 'searching.views.findBlockbyBasin', name='findBlockbyBasin'),
     url(r'^findFieldbyBasin/$', 'searching.views.findFieldbyBasin', name='findFieldbyBasin'),
-    # send document 
-     
+    # send document
+    url(r'^download/(?P<id>\w+)', 'searching.views.send_document'),
+    
+    #user requested report
+    url(r'^requested/$', 'searching.views.search_user_requested'),
+    url(r'^searchrequested/$', 'searching.views.list_user_request'),
+    #csv report
+    url(r'^downloadcsv/(?P<username>\w+)', 'searching.views.user_message_csv'),
     
 )
     

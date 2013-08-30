@@ -45,14 +45,29 @@
 						<span>Home</span>
 					</a>
 				</li>
+<!-- 				<li class="hmenu"> -->
+<!-- 					<a href="/treeview/1"> -->
+<!-- 						<span>Files</span> -->
+<!-- 					</a> -->
+<!-- 				</li> -->
 				<li class="hmenu">
-					<a href="/search">
-						<span>Search</span>
+					<a href="/search/">
+						<span>Documents</span>
 					</a>
 				</li>
 				<li class="hmenu">
-					<a href="/searchdocuments">
-						<span>Filter Search</span>
+					<a href="/searchdocumentsbasin/">
+						<span>Basin</span>
+					</a>
+				</li>
+				<li class="hmenu">
+					<a href="/searchdocumentsblock/">
+						<span>Block</span>
+					</a>
+				</li>
+				<li class="hmenu">
+					<a href="/searchdocumentsfield/">
+						<span>Field</span>
 					</a>
 				</li>
 				{% if user.is_authenticated %}
@@ -68,6 +83,14 @@
 					<li class="nav-login">
 						<a href="/accounts/password/reset/">
 							<span>Send Mail</span>
+						</a>
+					</li>
+				{% endif %}
+				
+				{% if user.is_superuser %}
+					<li class="nav-login">
+						<a href="/requested/">
+							<span>User Requested</span>
 						</a>
 					</li>
 				{% endif %}
@@ -100,8 +123,8 @@
 		<div class="social-links">
 			<label>Designed and build by:</label>
 			<ul>
-				<li><a class="facebook" target="_blank" href="https://www.facebook.com/deskgraphics" title="Viddy on Facebook" rel="nofollow"><span>Facebook</span></a></li>
-				<li><a class="linkedin" target="_blank" href="http://www.linkedin.com/profile/view?id=119011611&trk=tab_pro" title="Viddy on LinkedIn" rel="nofollow"><span>LinkedIn</span></a></li>
+				<li><a class="facebook" target="_blank" href="https://www.facebook.com/deskgraphics" title="DeskGraphics on Facebook" rel="nofollow"><span>Facebook</span></a></li>
+				<li><a class="linkedin" target="_blank" href="http://www.linkedin.com/profile/view?id=119011611&trk=tab_pro" title="DeskGraphics on LinkedIn" rel="nofollow"><span>LinkedIn</span></a></li>
 			</ul>
 		</div>
 

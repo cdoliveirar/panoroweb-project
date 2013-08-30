@@ -227,3 +227,22 @@ class Xmldata(models.Model):
     xmlinformation = models.TextField(blank=True)
     class Meta:
         db_table = u'xmldata'
+        
+
+
+class UserMessage(models.Model):
+    created_date = models.DateTimeField(auto_now_add=True)
+    user_name = models.CharField(max_length=300, blank=True)
+    message_string = models.CharField(max_length=300, blank=True)
+    
+    class Meta:
+        db_table = 'user_message' 
+
+
+class ServerPath(models.Model):
+    id_path = models.IntegerField(primary_key=True)
+    nm_path = models.CharField(max_length=50, blank=True)
+    
+    class Meta:
+        db_table = 'server_path'
+       

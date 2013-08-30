@@ -1,7 +1,7 @@
 '''
 Created on 26/04/2013
 
-@author: realize
+@author: Carlos Oliveira
 '''
 from django import forms
 #from .utilfinder import FindCountry

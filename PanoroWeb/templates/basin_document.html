@@ -13,15 +13,15 @@
 								<thead id="theader" class="ui-widget-header">
 									<tr>
 										<th>Document</th>
-										<th>Path</th>
-										<th>Folder</th>
+										<th>Type</th>
+										<th>Title</th>
 									</tr>
 								</thead>	
 								{% for document in documents %}
 								<tr>
 									<td>{{ document.nm_document }}</td>
-									<td>{{ document.path }}</td>
-									<td>{{ document.cd_folder.nm_folder }}</td>
+									<td>{{ document.extension }}</td>
+									<td>{{ document.title }}</td>
 									<td><a href="/documents_detail/{{document.id_document}}">details</a></td>
 								</tr>
 								{% endfor %}

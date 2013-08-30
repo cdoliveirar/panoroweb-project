@@ -62,7 +62,7 @@ class FindGeoDocumentation():
     
     def getFieldName(self,number):
         field = ProductionFields.objects.get(gid = number)
-        print field.nm_field
+        #print field.nm_field
         return field.nm_field
  
             

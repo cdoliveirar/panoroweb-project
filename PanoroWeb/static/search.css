@@ -5,14 +5,14 @@
 	/*height: 100px;*/
 	float:left; 
 	width:100%; 
-	background:#95ffff;}
+	background:#ffffff;}
 /*#outer2 {float:left; width:20%; background:#cccccc;} */
 #outer3 {
 	position: absolute;
 	margin-top: 70px;
 	/*height: 100px;*/
 	width:100%;
-	background:#E5FFC4;
+	background:#ffffff;
 }
 
 #outer1,#outer3 {padding-bottom:32767px; margin-bottom:-32767px;}
@@ -42,7 +42,7 @@ table{	width: 100%;
 
 .pagination a{color: #1c94c4;}
 
-#alert{margin-left:10px; width: 150px;}
+#alert{margin-left:10px; width: 300px;}
 
 #alert-error{margin-left:10px; width: 270px;}
 

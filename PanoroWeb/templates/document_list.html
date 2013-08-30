@@ -85,6 +85,16 @@
 						</a>
 					</li>
 				{% endif %}
+				
+				{% if user.is_superuser %}
+					<li class="nav-login">
+						<a href="/requested/">
+							<span>User Requested</span>
+						</a>
+					</li>
+				{% endif %}
+				
+				
 			</ul>
 			
 		</div>
@@ -119,7 +129,8 @@
 									<td>{{ document.nm_document }}</td>
 									<td>{{ document.extension }}</td>
 									<td>{{ document.title }}</td>
-									<td><a href="/documents_detail/{{document.id_document}}">details</a></td>
+									<td><a href="/download/{{ document.id_document }}">Download</a></td>
+									<td><a href="/documents_detail/{{document.id_document}}">Details</a></td>
 								</tr>
 								{% endfor %}
 							</table>
@@ -157,13 +168,13 @@
 		<div class="social-links">
 			<label>Designed and build by:</label>
 			<ul>
-				<li><a class="facebook" target="_blank" href="https://www.facebook.com/deskgraphics" title="Viddy on Facebook" rel="nofollow"><span>Facebook</span></a></li>
-				<li><a class="linkedin" target="_blank" href="http://www.linkedin.com/profile/view?id=119011611&trk=tab_pro" title="Viddy on LinkedIn" rel="nofollow"><span>LinkedIn</span></a></li>
+				<li><a class="facebook" target="_blank" href="https://www.facebook.com/deskgraphics" title="DeskGraphics on Facebook" rel="nofollow"><span>Facebook</span></a></li>
+				<li><a class="linkedin" target="_blank" href="http://www.linkedin.com/profile/view?id=119011611&trk=tab_pro" title="DeskGraphics on LinkedIn" rel="nofollow"><span>LinkedIn</span></a></li>
 			</ul>
 		</div>
 
 		<ul id="footer-text">
-			<li><a href="/" title="Imiria, Inc">&copy; Panoro Energy 2013</a></li>
+			<li><a href="/" title="Panoro Inc">&copy; Panoro Energy 2013</a></li>
 			<li><a href="/" title="Contact Panoro" rel="nofollow">Contact Us</a></li>
 		</ul>
 	</div>

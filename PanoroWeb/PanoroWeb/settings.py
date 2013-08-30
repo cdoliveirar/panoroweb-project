@@ -1,3 +1,11 @@
+from os.path import join, abspath, dirname
+
+# defining automatic path 
+here = lambda *x: join(abspath(dirname(__file__)), *x)
+PROJECT_ROOT = here("..")
+root = lambda *x: join(abspath(PROJECT_ROOT), *x)
+
+
 # Django settings for PanoroWeb project.
 
 DEBUG = True
@@ -64,14 +72,16 @@ STATIC_ROOT = ''
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
 
+
+STATICFILES_DIRS = (root('static'),)
 # Additional locations of static files
-STATICFILES_DIRS = (
+#STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    'C:/REALIZE/workspacepy/panoroweb-project/PanoroWeb/static',
+#    'C:/REALIZE/workspacepy/panoroweb-project/PanoroWeb/static',
     
-)
+#)
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -105,13 +115,16 @@ ROOT_URLCONF = 'PanoroWeb.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'PanoroWeb.wsgi.application'
 
-TEMPLATE_DIRS = (
+
+TEMPLATE_DIRS = (root('templates'),)
+
+#TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-	'C:/REALIZE/workspacepy/panoroweb-project/PanoroWeb/templates',
+#	'C:/REALIZE/workspacepy/panoroweb-project/PanoroWeb/templates',
     
-)
+#)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -126,7 +139,6 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     #gis
     'django.contrib.gis',
-    'treefiles',
     'authentication',
     #userena
     #'userena',
@@ -199,7 +211,7 @@ EMAIL_HOST_USER = 'teste@deskgraphics.com.br'
 EMAIL_HOST_PASSWORD = 'aaaa11'
 EMAIL_PORT = 587
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-DEFAULT_FROM_EMAIL = 'teste@deskgraphics.com.br'
+DEFAULT_FROM_EMAIL = 'support@deskgraphics.com.br'
   
 
 # A sample logging configuration. The only tangible logging

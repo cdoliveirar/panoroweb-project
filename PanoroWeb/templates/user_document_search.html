@@ -1,14 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title> Panoro Energy - search documents </title>
+<meta name="Author" content="DeskGraphics" />
+<meta name="Keywords" content="documents, gis, intranet, sistema" />
+<meta name="Description" content="GEOSistema" />
+<meta http-equiv="imagetoolbar" content="no" />
+
+<script src="/static/js/jquery-1.9.0.js" type="text/javascript"></script>
+<script src="/static/ui/js/jquery-ui-1.10.2.custom.js" type="text/javascript"></script> 
+<link rel="stylesheet" type="text/css" href="/static/ui/css/ui-lightness/jquery-ui-1.10.2.custom.css"/>
+
+
+<link href="/static/search.css" rel="stylesheet" type="text/css" />
+
+
+<script type="text/javascript">
+	$(document).ready(function() { 
+		$('button').button();
+	});
+</script> 
+
+
+
 </head>
+
 <body>
-<header>
+	<header>
 		<div class="panoro-wrap">
 			<div id="logo"><a href="/"> <img class="logo" src="/static/img/logoMain.gif" height="80" width="250" /> </a>
 			</div><!-- end logo -->
+			
 			<div class="user-content">
 				{% if user.is_authenticated %}
 					<p>Welcome, {{ user.username }}. </p>
@@ -17,42 +40,62 @@
 				{% endif %}
 					<a href="/logout">logout</a>			
 			</div>
-		
+			
 			<ul class="nav">
 				<li class="hmenu">
 					<a href="/">
 						<span>Home</span>
 					</a>
 				</li>
+<!-- 				<li class="hmenu"> -->
+<!-- 					<a href="/treeview/1"> -->
+<!-- 						<span>Files</span> -->
+<!-- 					</a> -->
+<!-- 				</li> -->
 				<li class="hmenu">
-					<a href="/treeview/1">
-						<span>Files</span>
+					<a href="/search/">
+						<span>Documents</span>
 					</a>
 				</li>
 				<li class="hmenu">
-					<a href="/search">
-						<span>Search</span>
+					<a href="/searchdocumentsbasin/">
+						<span>Basin</span>
 					</a>
 				</li>
+				<li class="hmenu">
+					<a href="/searchdocumentsblock/">
+						<span>Block</span>
+					</a>
+				</li>
+				<li class="hmenu">
+					<a href="/searchdocumentsfield/">
+						<span>Field</span>
+					</a>
+				</li>
+				{% if user.is_authenticated %}
+				{% else %}
 				<li class="nav-login">
 					<a href="/login">
 						<span>Sign in</span>
 					</a>
 				</li>
-				{% if user.is_superuser %}
-					<li class="nav-login">
-						<a href="accounts/signup">
-							<span>Sign User</span>
-						</a>
-					</li>
 				{% endif %}
 				{% if user.is_superuser %}
 					<li class="nav-login">
-						<a href="accounts/password/reset/">
+						<a href="/accounts/password/reset/">
 							<span>Send Mail</span>
 						</a>
 					</li>
 				{% endif %}
+				
+				{% if user.is_superuser %}
+					<li class="nav-login">
+						<a href="/requested/">
+							<span>User Requested</span>
+						</a>
+					</li>
+				{% endif %}
+				
 			</ul>
 			
 		</div>
@@ -70,71 +113,70 @@
 		<div id="outer1">
 			<div class="content">
 					<div id="main">
-						<form method="POST">{% csrf_token %}
-							<select name="country">
-								<option value="">- - Select - -</option>
-							{% for entry in items %}
-							    <option value="{{ entry.gid }}">{{ entry.nm_country }}</option>
-							{% endfor %}
-							</select>
-							<br>
-							<select name="basin">
-							{% for entry in items %}
-							    <option value="{{ entry.gid }}">{{ entry.nm_basin }}</option>
-							{% endfor %}
-							</select>
-							
-						</form>
+						{% if error %}
+							<p style="color: red;">Please submit a search term.</p>
+						{% endif %}	
+						 <form action="/searchrequested/" method="get" id="gbqf">
+						 	<h4>Enter a User Name:</h4>
+						 	<input type=search results=5 autosave=some_unique_value name=q >
+	        				<button type="submit">Search</button>
+	    				</form>
 					</div> <!-- end main --> 
 			</div> <!-- end content -->
 		</div>
 		<div id="outer2"></div>
 		<div id="outer3">
 			<div class="content">
-	    				{% if documents %}
+	    				{% if messages %}
 	    					<div id="alert" class="ui-state-highlight ui-corner-all" >
 	    						<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-								<p>Found {{ documents|length }} Document{{ documents|pluralize }}</p><br>
+								<p>Found {{ docAmount }} Download{{ messages|pluralize }} for the user {{ query }}</p><br>
 							</div>
 				<div id="basket" class="ui-widget ui-widget-content" >	
 							<table id="basketTable">
 								<thead id="theader" class="ui-widget-header">
 									<tr>
-										<th>Document</th>
-										<th>Path</th>
-										<th>Folder</th>
+										<th>User Name</th>
+										<th>Date Requested</th>
+										<th>Description</th>
 									</tr>
 								</thead>	
-								{% for document in documents %}
+								{% for message in messages %}
 								<tr>
-									<td>{{ document.nm_document }}</td>
-									<td>{{ document.path }}</td>
-									<td>{{ document.cd_folder.nm_folder }}</td>
+									<td>{{ message.user_name }}</td>
+									<td>{{ message.created_date }}</td>
+									<td>{{ message.message_string }}</td>
 								</tr>
 								{% endfor %}
 							</table>
+								
 							<div class="pagination">
 							    <span class="step-links">
-							        {% if documents.has_previous %}
-							            <a href="?q={{query}}&page={{ documents.previous_page_number }}">previous</a>
+							        {% if messages.has_previous %}
+							            <a href="?q={{query}}&page={{ messages.previous_page_number }}">previous</a>
 							        {% endif %}
 							
 							        <span class="current">
-							            Page {{ documents.number }} of {{ documents.paginator.num_pages }}.
+							            Page {{ messages.number }} of {{ messages.paginator.num_pages }}.
 							        </span>
 							
-							        {% if documents.has_next %}
-							            <a href="?q={{query}}&page={{ documents.next_page_number }}">next</a>
+							        {% if messages.has_next %}
+							            <a href="?q={{query}}&page={{ messages.next_page_number }}">next</a>
 							        {% endif %}
 							    </span>
+							<a style="margin-left:290px;" href="/downloadcsv/{{query}}">csv report</a>
 							</div>
+							
+							
 						{% else %}
 							<div id="alert-error"  class="ui-state-error ui-corner-all" >
 								<span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>			
-								<p>No documents matched your search criteria.</p>
+								<p>No User matched your search criteria.</p>
 							</div>
 						{% endif %}
+    			
     			 </div>
+    			 
 					 
 			</div>
 		</div>
@@ -155,13 +197,11 @@
 		</div>
 
 		<ul id="footer-text">
-			<li><a href="/" title="Imiria, Inc">&copy; Panoro Energy 2013</a></li>
+			<li><a href="/" title="Panoro">&copy; Panoro Energy 2013</a></li>
 			<li><a href="/" title="Contact Panoro" rel="nofollow">Contact Us</a></li>
 		</ul>
 	</div>
 </footer>
-
-
 
 </body>
 </html>

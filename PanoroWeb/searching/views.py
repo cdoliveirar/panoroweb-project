@@ -1,6 +1,9 @@
 # Create your views here.
 import logging
-
+import mimetypes
+import os
+import csv
+import datetime
  
 
 from django.shortcuts import render_to_response
@@ -8,7 +11,10 @@ from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.views.defaults import page_not_found
+from django.core.servers.basehttp import FileWrapper
 
+#from django.contrib.auth import user_logged_in
 
 
 from .utilfinder import FindGeoDocumentation
@@ -19,6 +25,8 @@ from .models import Documents
 from .models import ProductionFields
 from .models import Basins
 from .models import ExplorationBlocks
+from .models import UserMessage
+from .models import ServerPath
 
 
 logger =logging.getLogger()
@@ -35,7 +43,6 @@ def searching_documents(request):
         q = request.GET['q']
         filter_documents = Documents.objects.filter(nm_document__contains=q)
               
-        
         document_amount = filter_documents.count()
         #
         paginator = Paginator(filter_documents, 15)
@@ -91,7 +98,10 @@ def searchFilterDocuments(request):
         filter_documents = Documents.objects.filter(path__contains=blockName)
         logger.info("Number of Documents >> %s" % filter_documents.count())
         docAmount = filter_documents.count()
-        #
+        #go csv
+        #trato_csv(filter_documents)
+        
+        
         paginator = Paginator(filter_documents, 15)
         page = request.GET.get('page')
         try:
@@ -204,7 +214,7 @@ def field_document_list(request, id):
 def basin_document_list(request,id):
     basin = Basins.objects.get(gid = id)
     basinName = basin.nm_basin
-    print basinName     
+    logger.info("Basin Name >>>> " + basinName)
     filter_documents = Documents.objects.filter(path__contains=basinName)
     logger.info("amount of Basins >>>> %s" % filter_documents.count())
     docAmount = filter_documents.count()
@@ -224,7 +234,7 @@ def basin_document_list(request,id):
 def block_document_list(request,id):
     block = ExplorationBlocks.objects.get(gid = id)
     blockName = block.nm_block
-    print blockName
+    logger.info("Block Name >>>> " + blockName)
     
     filter_documents = Documents.objects.filter(path__contains=blockName)
     logger.info("amount of blocks >>>> %s" % filter_documents.count())
@@ -302,4 +312,102 @@ def findFieldbyBasin(request):
         logger.info("No ajax approach")
         
     return HttpResponse(fieldListRes)
-       
+
+#Allow download one file
+def send_document(request,id):
+    #serverPathId = 2
+    documentObj = Documents.objects.get(id_document = id)
+    serverPathObj = ServerPath.objects.get(id_path = 2)
+    pathLocal = serverPathObj.nm_path
+    print pathLocal
+    
+    filename = documentObj.nm_document
+    
+    logger.info("filename>> "+ filename)
+    path = documentObj.path
+    
+    fullname = pathLocal + path + filename
+    logger.info("fullname>> "+ fullname)
+    
+    #username = request.GET['username']
+    #print username
+    
+    try:
+        f = open(fullname, "rb")
+        
+        if request.user.is_authenticated():
+            #user_logged_in = request.user
+            userName = request.user
+            #logger.error("User get document is>> "+ userName)
+            print 
+            u= UserMessage(user_name = userName, message_string = filename)
+            u.save()
+        
+    except Exception, e:
+        return page_not_found(request, template_name='404.html')
+    try:
+        wrapper = FileWrapper(f)
+        response = HttpResponse(wrapper, mimetype=mimetypes.guess_type(filename)[0])
+        response['Content-Length'] = os.path.getsize(fullname)
+        #response['Content-Disposition'] = 'attachment; filename={0}'.format(filename)
+        response['Content-Disposition'] = 'attachment; filename=%s' % filename
+        return response
+    except Exception, e:
+        return page_not_found(request, template_name='500.html')
+
+
+
+@login_required(login_url='/login/')
+def search_user_requested(request):
+    return render_to_response("user_document_search.html","",context_instance=RequestContext(request))
+
+
+@login_required(login_url='/login/') 
+def list_user_request(request):
+    
+    if 'q' in request.GET and request.GET['q']:
+        q = request.GET['q']
+        filter_userlogger = UserMessage.objects.filter(user_name__contains=q)
+        
+        document_amount = filter_userlogger.count()
+        #logger.info("document amount >> "+ document_amount)
+        #
+        paginator = Paginator(filter_userlogger, 15)
+        page = request.GET.get('page')
+        try:
+            messages = paginator.page(page)
+        except PageNotAnInteger:
+            messages = paginator.page(1)
+        except EmptyPage:
+            messages = paginator.page(paginator.num_pages)    
+        #
+        
+        return render_to_response("user_document_search.html",{"query":q,"messages": messages,"docAmount": document_amount},context_instance=RequestContext(request))
+    else:
+        return render_to_response('user_document_search.html', {'error': True},context_instance=RequestContext(request))
+    
+    
+def user_message_csv(request,username):
+    userMessage = UserMessage.objects.filter(user_name = username)
+    currentDate = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    
+    response = HttpResponse(mimetype='text/csv')
+    #response['Content-Disposition'] = 'attachment; filename=userDocuments_'+username+'.csv'
+    response['Content-Disposition'] = 'attachment; filename=Documents_'+username+'_'+currentDate+'.csv'
+    # Create the CSV writer using the HttpResponse as the "file."
+    writer = csv.writer(response,delimiter=";")
+    writer.writerow(['User Name', 'Document','Date'])
+    for message in userMessage:
+        userName = message.user_name
+        userDate = message.created_date.strftime("%Y-%m-%d %H:%M")
+        userMessage = message.message_string
+        writer.writerow([userName,userMessage,userDate])
+    
+    return response
+
+
+
+
+
+
+    
