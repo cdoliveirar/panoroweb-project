@@ -33,8 +33,20 @@ logger =logging.getLogger()
 
 @login_required(login_url='/login/')    
 def search(request):
-    return render_to_response("searchdocument.html","",context_instance=RequestContext(request))
-
+    filter_documents = Documents.objects.all()[:500]
+    
+    #document_amount = filter_documents.count()
+    paginator = Paginator(filter_documents, 25)
+    page = request.GET.get('page')
+    try:
+        documents = paginator.page(page)
+    except PageNotAnInteger:
+        documents = paginator.page(1)
+    except EmptyPage:
+        documents = paginator.page(paginator.num_pages)    
+    
+    return render_to_response("searchdocument.html",{"documents": documents},context_instance=RequestContext(request))
+    
 
 @login_required(login_url='/login/') 
 def searching_documents(request):
