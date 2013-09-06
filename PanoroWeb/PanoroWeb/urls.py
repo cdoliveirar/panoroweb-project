@@ -53,7 +53,7 @@ urlpatterns = patterns('',
     
     #searching documents
     #url(r'^search2/$', 'searching.views.load_country_combo'),
-    url(r'^searchfilterblock/$', 'searching.views.searchFilterDocuments'),
+    
     #search for basin
     url(r'^searchdocumentsbasin/$', 'searching.views.searchdocumentsbasin'),
     url(r'^searchFilterBasins/$', 'searching.views.searchFilterBasins'),

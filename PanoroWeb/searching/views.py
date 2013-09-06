@@ -57,7 +57,7 @@ def searching_documents(request):
               
         document_amount = filter_documents.count()
         #
-        paginator = Paginator(filter_documents, 15)
+        paginator = Paginator(filter_documents, 25)
         page = request.GET.get('page')
         try:
             documents = paginator.page(page)
@@ -91,7 +91,7 @@ def searchdocumentsfield(request):
     return render_to_response ('filter_searching_field.html',{'items':countryItems}, context_instance =  RequestContext(request))
 
 
-#flters
+#filters
 def searchFilterDocuments(request):
     #country = request.POST['country']
     #basin = request.POST['basin']
@@ -105,6 +105,7 @@ def searchFilterDocuments(request):
     #    print bloque
     #    blockId = request.POST.get('block')
         
+        block = "block"
         
         blockName = FindGeoDocumentation().getBlockName(blockId)
         filter_documents = Documents.objects.filter(path__contains=blockName)
@@ -114,7 +115,7 @@ def searchFilterDocuments(request):
         #trato_csv(filter_documents)
         
         
-        paginator = Paginator(filter_documents, 15)
+        paginator = Paginator(filter_documents, 25)
         page = request.GET.get('page')
         try:
             documents = paginator.page(page)
@@ -123,7 +124,7 @@ def searchFilterDocuments(request):
         except EmptyPage:
             documents = paginator.page(paginator.num_pages)    
         #
-        return render_to_response("document_list.html",{"block": blockId,"documents": documents,"docAmount":docAmount},context_instance=RequestContext(request))
+        return render_to_response("document_list.html",{"block":block,"id": blockId,"documents": documents,"docAmount":docAmount},context_instance=RequestContext(request))
     else:
         return render_to_response('document_list.html', {'error': True},context_instance=RequestContext(request))
 
@@ -140,7 +141,7 @@ def searchFilterBasins(request):
     #    bloque = request.POST.get('block')
     #    print bloque
     #    blockId = request.POST.get('block')
-        
+        basin = "basin"
         
         basinName = FindGeoDocumentation().getBasinName(basinId)
         logger.info("basin name>>>>>> %s" % basinName)
@@ -148,7 +149,7 @@ def searchFilterBasins(request):
         logger.info("Number of Documents >> %s" % filter_basin.count())
         docAmount = filter_basin.count()
         #
-        paginator = Paginator(filter_basin, 15)
+        paginator = Paginator(filter_basin, 25)
         page = request.GET.get('page')
         try:
             documents = paginator.page(page)
@@ -157,9 +158,11 @@ def searchFilterBasins(request):
         except EmptyPage:
             documents = paginator.page(paginator.num_pages)    
         #
-        return render_to_response("document_list.html",{"block": basinId,"documents": documents,"docAmount":docAmount},context_instance=RequestContext(request))
+        return render_to_response("document_list.html",{"basin":basin,"id": basinId,"documents": documents,"docAmount":docAmount},context_instance=RequestContext(request))
     else:
         return render_to_response('document_list.html', {'error': True},context_instance=RequestContext(request))
+
+
 
 
 def searchFilterFields(request):
@@ -175,6 +178,7 @@ def searchFilterFields(request):
     #    print bloque
     #    blockId = request.POST.get('block')
         
+        field = "field"
         
         fieldName = FindGeoDocumentation().getFieldName(fieldId)
         logger.info("field name>>>>>> %s" % fieldName)
@@ -182,7 +186,7 @@ def searchFilterFields(request):
         logger.info("Number of Documents >> %s" % filter_field.count())
         docAmount = filter_field.count()
         #
-        paginator = Paginator(filter_field, 15)
+        paginator = Paginator(filter_field, 25)
         page = request.GET.get('page')
         try:
             documents = paginator.page(page)
@@ -191,7 +195,7 @@ def searchFilterFields(request):
         except EmptyPage:
             documents = paginator.page(paginator.num_pages)    
         #
-        return render_to_response("document_list.html",{"block": fieldId,"documents": documents,"docAmount":docAmount},context_instance=RequestContext(request))
+        return render_to_response("document_list.html",{"field":field,"id": fieldId,"documents": documents,"docAmount":docAmount},context_instance=RequestContext(request))
     else:
         return render_to_response('document_list.html', {'error': True},context_instance=RequestContext(request))
 
@@ -211,7 +215,7 @@ def field_document_list(request, id):
     logger.info("amount of fields >>>> %s" % filter_documents.count())
     docAmount = filter_documents.count()
     
-    paginator = Paginator(filter_documents, 15)
+    paginator = Paginator(filter_documents, 25)
     page = request.GET.get('page')
     try:
         documents = paginator.page(page)
@@ -231,7 +235,7 @@ def basin_document_list(request,id):
     logger.info("amount of Basins >>>> %s" % filter_documents.count())
     docAmount = filter_documents.count()
     
-    paginator = Paginator(filter_documents, 15)
+    paginator = Paginator(filter_documents, 25)
     page = request.GET.get('page')
     try:
         documents = paginator.page(page)
@@ -252,7 +256,7 @@ def block_document_list(request,id):
     logger.info("amount of blocks >>>> %s" % filter_documents.count())
     docAmount = filter_documents.count()
     
-    paginator = Paginator(filter_documents, 15)
+    paginator = Paginator(filter_documents, 25)
     page = request.GET.get('page')
     try:
         documents = paginator.page(page)
@@ -384,7 +388,7 @@ def list_user_request(request):
         document_amount = filter_userlogger.count()
         #logger.info("document amount >> "+ document_amount)
         #
-        paginator = Paginator(filter_userlogger, 15)
+        paginator = Paginator(filter_userlogger, 25)
         page = request.GET.get('page')
         try:
             messages = paginator.page(page)
